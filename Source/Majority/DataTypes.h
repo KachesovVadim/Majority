@@ -11,6 +11,7 @@ public:
 	~DataTypes();
 };
 
+// ---------------------------------- ENUMERATORS ----------------------------------
 UENUM(BlueprintType)
 enum class ETreasureRank : uint8
 {
@@ -21,7 +22,16 @@ enum class ETreasureRank : uint8
     Legendary
 };
 
-// Конфиг лимитов для каждого качества
+UENUM(BlueprintType)
+enum class EPlayerStatus : uint8
+{
+    Idle            UMETA(DisplayName = "Character do nothing"),
+    TreasureHunting UMETA(DisplayName = "Character is looking for a treasure")
+};
+
+
+// ---------------------------------- STRUCTURES ----------------------------------
+// Конфиг лимитов для каждого качества сокровища
 USTRUCT(BlueprintType)
 struct FTreasureRankLimits
 {

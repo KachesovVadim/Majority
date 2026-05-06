@@ -10,6 +10,8 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 
+// Attachment transform rule
+#include "GameFramework/Actor.h"   // For FAttachmentTransformRules
 
 //////////////////////////////////////////////////////////////////////////
 // AMajorityCharacter
@@ -49,6 +51,8 @@ AMajorityCharacter::AMajorityCharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
+
+	TreasureSearchingSkill_component = CreateDefaultSubobject<UTreasureSearchingSkill_comp>(TEXT("Treasure searching component"));
 }
 
 void AMajorityCharacter::BeginPlay()
@@ -64,6 +68,7 @@ void AMajorityCharacter::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+	InitMetalDetector();
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -123,6 +128,67 @@ void AMajorityCharacter::Look(const FInputActionValue& Value)
 	//}
 }
 
+void AMajorityCharacter::InitMetalDetector()
+{
+	if (MetalDetectorClass)
+	{
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.Owner = this;
+		SpawnParams.Instigator = GetInstigator();
 
+		// 1. Spawn the actor
+		MetalDetectorActor = GetWorld()->SpawnActor<AMetalDetector>(
+			MetalDetectorClass,
+			FVector::ZeroVector,
+			FRotator::ZeroRotator,
+			SpawnParams
+		);
+
+		if (MetalDetectorActor)
+		{
+			// 2. Define Attachment Rules
+			// SnapToTarget ensures it moves exactly to the socket position
+			FAttachmentTransformRules AttachmentRules(
+				EAttachmentRule::SnapToTarget,
+				EAttachmentRule::SnapToTarget,
+				EAttachmentRule::KeepWorld,
+				false
+			);
+
+			// 3. Attach to the Character's Mesh at a specific socket
+			// Replace "Hand_RSocket" with your actual socket name in the Skeletal Mesh
+			MetalDetectorActor->AttachToComponent(GetMesh(), AttachmentRules, TEXT("MetalDetector_socket"));
+
+		}
+	}
+	return;
+	// Safety: Only spawn if the class is valid and not already spawned
+   if (MetalDetectorClass && !MetalDetectorActor)
+   {
+	   FVector SpawnLocation = FVector::ZeroVector;              // Usually not important for attached actors
+	   FRotator SpawnRotation = FRotator::ZeroRotator;
+
+	   // Spawn the actor. The Blueprint class is assigned in the Editor to MetalDetectorClass property
+	   MetalDetectorActor = GetWorld()->SpawnActor<AMetalDetector>(
+		   MetalDetectorClass,
+		   SpawnLocation,
+		   SpawnRotation
+	   );
+
+	   if (MetalDetectorActor)
+	   {
+		   // Attach to character mesh at a named socket (replace "Hand_RSocket" with your actual socket name)
+		   MetalDetectorActor->AttachToComponent(
+			   GetMesh(),
+			   FAttachmentTransformRules::SnapToTargetNotIncludingScale,
+			   FName(TEXT("MetalDetector_socket")) // Set this to your actual socket/bone name!
+		   );
+	   }
+	   else
+	   {
+		   UE_LOG(LogTemp, Warning, TEXT("Failed to spawn MetalDetectorActor."));
+	   }
+   }
+}
 
 

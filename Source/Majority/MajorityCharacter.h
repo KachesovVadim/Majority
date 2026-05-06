@@ -5,6 +5,11 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "InputActionValue.h"
+
+#include "DataTypes.h"
+#include "TreasureSearchingSkill_comp.h"
+#include "MetalDetector.h" 
+
 #include "MajorityCharacter.generated.h"
 
 
@@ -57,10 +62,28 @@ protected:
 	// To add mapping context
 	virtual void BeginPlay();
 
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UTreasureSearchingSkill_comp* TreasureSearchingSkill_component;
+	
+
 public:
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
+	// What chraracter is doing right now
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	EPlayerStatus CurrentPlayerStatus = EPlayerStatus::Idle;
+
+	void InitMetalDetector();
+
+	// Lets you assign ANY Blueprint (child of MetalDetectorActor) in editor/Blueprint
+	UPROPERTY(EditDefaultsOnly, Category = "CUSTOM")
+	TSubclassOf<AMetalDetector> MetalDetectorClass;
+
+	// For runtime reference
+	UPROPERTY()
+	AActor* MetalDetectorActor;
 };
 

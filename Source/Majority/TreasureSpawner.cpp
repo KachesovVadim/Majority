@@ -55,6 +55,9 @@ void ATreasureSpawner::SpawnTreasure()
     for (ETreasureRank Rank : RanksToSpawn)
     {
         FVector SpawnLoc = FindValidSpawnLocation(SpawnedLocations);
+        
+        if (SpawnLoc == GetActorLocation()) { continue; }
+
         SpawnedLocations.Add(SpawnLoc);
         
         FRotator MyRotation = FRotator(0.f, 90.f, 0.f);
