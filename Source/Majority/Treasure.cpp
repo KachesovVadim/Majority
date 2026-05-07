@@ -9,8 +9,9 @@ ATreasure::ATreasure()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-    debug_mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Debug mesh"));
-    debug_mesh->SetupAttachment(RootComponent);
+	debug_mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Debug mesh"));
+	SetRootComponent(debug_mesh);
+	//debug_mesh->SetupAttachment(SceneRoot);
 
 }
 

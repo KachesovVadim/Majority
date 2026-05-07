@@ -158,37 +158,9 @@ void AMajorityCharacter::InitMetalDetector()
 			// 3. Attach to the Character's Mesh at a specific socket
 			// Replace "Hand_RSocket" with your actual socket name in the Skeletal Mesh
 			MetalDetectorActor->AttachToComponent(GetMesh(), AttachmentRules, TEXT("MetalDetector_socket"));
-
+			//MetalDetectorActor->AttachToActor(this, AttachmentRules, "MetalDetector_socket");
 		}
 	}
-	return;
-	// Safety: Only spawn if the class is valid and not already spawned
-   if (MetalDetectorClass && !MetalDetectorActor)
-   {
-	   FVector SpawnLocation = FVector::ZeroVector;              // Usually not important for attached actors
-	   FRotator SpawnRotation = FRotator::ZeroRotator;
-
-	   // Spawn the actor. The Blueprint class is assigned in the Editor to MetalDetectorClass property
-	   MetalDetectorActor = GetWorld()->SpawnActor<AMetalDetector>(
-		   MetalDetectorClass,
-		   SpawnLocation,
-		   SpawnRotation
-	   );
-
-	   if (MetalDetectorActor)
-	   {
-		   // Attach to character mesh at a named socket (replace "Hand_RSocket" with your actual socket name)
-		   MetalDetectorActor->AttachToComponent(
-			   GetMesh(),
-			   FAttachmentTransformRules::SnapToTargetNotIncludingScale,
-			   FName(TEXT("MetalDetector_socket")) // Set this to your actual socket/bone name!
-		   );
-	   }
-	   else
-	   {
-		   UE_LOG(LogTemp, Warning, TEXT("Failed to spawn MetalDetectorActor."));
-	   }
-   }
 }
 
 

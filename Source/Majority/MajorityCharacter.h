@@ -79,7 +79,7 @@ public:
 	void InitMetalDetector();
 
 	// Lets you assign ANY Blueprint (child of MetalDetectorActor) in editor/Blueprint
-	UPROPERTY(EditDefaultsOnly, Category = "CUSTOM")
+	UPROPERTY(BlueprintReadWrite, Category = "CUSTOM")
 	TSubclassOf<AMetalDetector> MetalDetectorClass;
 
 	// For runtime reference

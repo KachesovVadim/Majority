@@ -9,8 +9,12 @@ AMetalDetector::AMetalDetector()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	SceneRoot = CreateDefaultSubobject<USceneComponent>(TEXT("DefaultSceneRoot"));
+	SetRootComponent(SceneRoot); // Assigns this as the Actor's root
+
 	detector_mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Metal detector mesh"));
-	detector_mesh->SetupAttachment(RootComponent);
+	//SetRootComponent(detector_mesh);
+	detector_mesh->SetupAttachment(SceneRoot);
 
 }
 
