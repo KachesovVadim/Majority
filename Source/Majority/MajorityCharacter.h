@@ -8,7 +8,6 @@
 
 #include "DataTypes.h"
 #include "TreasureSearchingSkill_comp.h"
-#include "MetalDetector.h" 
 
 #include "MajorityCharacter.generated.h"
 
@@ -61,9 +60,6 @@ protected:
 	
 	// To add mapping context
 	virtual void BeginPlay();
-
-	UPROPERTY(VisibleAnywhere, Category = "Components")
-	UTreasureSearchingSkill_comp* TreasureSearchingSkill_component;
 	
 
 public:
@@ -71,6 +67,9 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	UTreasureSearchingSkill_comp* TreasureSearchingSkill_component;
 
 	// What chraracter is doing right now
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -80,10 +79,10 @@ public:
 
 	// Lets you assign ANY Blueprint (child of MetalDetectorActor) in editor/Blueprint
 	UPROPERTY(BlueprintReadWrite, Category = "CUSTOM")
-	TSubclassOf<AMetalDetector> MetalDetectorClass;
+	TSubclassOf<class AMetalDetector> MetalDetectorClass;
 
 	// For runtime reference
 	UPROPERTY()
-	AActor* MetalDetectorActor;
+	class AMetalDetector* MetalDetectorActor;
 };
 

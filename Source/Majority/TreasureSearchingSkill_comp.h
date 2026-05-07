@@ -33,4 +33,9 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void DeactivateSkill();
+
+	class ATreasure* FindRandomTreasure();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Treasure")
+	class ATreasure* CurrentTreasure;
 };

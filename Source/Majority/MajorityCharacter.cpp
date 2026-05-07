@@ -11,7 +11,8 @@
 #include "EnhancedInputSubsystems.h"
 
 // Attachment transform rule
-#include "GameFramework/Actor.h"   // For FAttachmentTransformRules
+//#include "GameFramework/Actor.h"   // For FAttachmentTransformRules
+#include "MetalDetector.h" 
 
 //////////////////////////////////////////////////////////////////////////
 // AMajorityCharacter
