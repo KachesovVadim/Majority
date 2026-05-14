@@ -106,6 +106,11 @@ void AMetalDetector::EnterFoundState()
     HintLight->SetVisibility(true);
     bIsLightOn = true; // Свет горит постоянно
 
+    if (HintWidgetInstance)
+    {
+        HintWidgetInstance->SetActorHiddenInGame(false);
+    }
+
     // Запуск зацикленного звука находки
     if (FoundLoopSound)
     {
@@ -132,6 +137,11 @@ void AMetalDetector::EnterSearchingState()
 {
     bIsFound = false;
     ResetFoundState();
+
+    if (HintWidgetInstance)
+    {
+        HintWidgetInstance->SetActorHiddenInGame(true);
+    }
 }
 
 void AMetalDetector::ResetFoundState()
@@ -148,6 +158,29 @@ void AMetalDetector::ResetFoundState()
 void AMetalDetector::SetTargetTreasure(ATreasure* NewTreasure)
 {
     TargetTreasure = NewTreasure;
+
+    if (HintWidgetInstance)
+    {
+        FVector NewLocation = TargetTreasure->GetActorLocation() + FVector(0, 0, WidgetHeightOffset);
+        HintWidgetInstance->SetActorLocation(NewLocation);
+        HintWidgetInstance->SetActorHiddenInGame(true);
+    }    
+
+    else if (TargetTreasure && HintWidgetClass)
+    {
+        // Создаём виджет в мире
+        HintWidgetInstance = GetWorld()->SpawnActor<AActor>(
+            HintWidgetClass,
+            TargetTreasure->GetActorLocation() + FVector(0, 0, WidgetHeightOffset),
+            FRotator::ZeroRotator
+        );
+
+        if (HintWidgetInstance)
+        {
+            // Изначально скрываем — покажем только в EnterFoundState
+            HintWidgetInstance->SetActorHiddenInGame(true);
+        }
+    }
 }
 
 void AMetalDetector::StartSearching()

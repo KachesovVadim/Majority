@@ -12,4 +12,10 @@ AMajorityGameMode::AMajorityGameMode()
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
+
+	/*static ConstructorHelpers::FClassFinder<AHUD> MainHUDBPClass(TEXT("/Game/Blueprints/UI/HUD_bp.HUD_bp_C"));
+	if (MainHUDBPClass.Class != NULL)
+	{
+		HUDClass = MainHUDBPClass.Class;
+	}*/
 }

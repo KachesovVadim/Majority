@@ -38,4 +38,9 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Treasure")
 	class ATreasure* CurrentTreasure;
+
+	UFUNCTION(BlueprintCallable)
+	bool IsPlayerStayingNearTreasure();
+
+	
 };

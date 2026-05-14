@@ -7,6 +7,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "Treasure.h"
 
+#include "DrawDebugHelpers.h"
+
 // Sets default values for this component's properties
 UTreasureSearchingSkill_comp::UTreasureSearchingSkill_comp()
 {
@@ -68,5 +70,29 @@ ATreasure* UTreasureSearchingSkill_comp::FindRandomTreasure()
     int32 RandomIndex = FMath::RandRange(0, FoundActors.Num() - 1);
     CurrentTreasure = Cast<ATreasure>(FoundActors[RandomIndex]);
 
+    DrawDebugSphere(
+        GetWorld(),             // World context
+        CurrentTreasure->GetActorLocation()+FVector(0,0,300),
+        33.0f,                 // Radius
+        48,                     // Segments (smoothness)
+        FColor::Yellow,            // Color
+        true,                  // Persistent (true = stays forever)
+        5555.0f,                   // LifeTime in seconds
+        0,                      // Depth priority
+        2.0f                    // Thickness
+    );
+
     return CurrentTreasure;    
+}
+
+bool UTreasureSearchingSkill_comp::IsPlayerStayingNearTreasure()
+{
+    if (MyCharacter)
+    {
+        if (MyCharacter->MetalDetectorActor) 
+        {
+            return MyCharacter->MetalDetectorActor->bIsFound;
+        }
+    }  
+    return false;
 }

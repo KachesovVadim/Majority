@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Kismet/GameplayStatics.h"
+#include "Engine/World.h"
 #include "MetalDetector.generated.h"
 
 class UPointLightComponent;
@@ -51,6 +53,15 @@ public:
 
     UPROPERTY(EditAnywhere, Category = "CUSTOM")
     class USoundBase* FoundLoopSound; // Звук находки (должен зацикливаться)
+
+    UPROPERTY(EditAnywhere, Category = "CUSTOM")
+    TSubclassOf<AActor> HintWidgetClass;
+
+    UPROPERTY()
+    AActor* HintWidgetInstance = nullptr; // Экземпляр виджета
+
+    UPROPERTY(EditAnywhere, Category = "CUSTOM", meta = (ClampMin = "0.0"))
+    float WidgetHeightOffset = 400.0f; // Смещение виджета над сокровищем
 
     // Настройки дистанции и скорости мигания
     UPROPERTY(EditAnywhere, Category = "CUSTOM", meta = (ClampMin = "0.0"))
