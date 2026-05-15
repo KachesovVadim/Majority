@@ -84,5 +84,8 @@ public:
 	// For runtime reference
 	UPROPERTY()
 	class AMetalDetector* MetalDetectorActor;
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void DevelopmentMechanic(ETreasureRank TreasureRank);
 };
 

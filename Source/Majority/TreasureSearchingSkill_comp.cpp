@@ -96,3 +96,15 @@ bool UTreasureSearchingSkill_comp::IsPlayerStayingNearTreasure()
     }  
     return false;
 }
+
+void UTreasureSearchingSkill_comp::DigTreasure()
+{
+    if (!IsPlayerStayingNearTreasure()) { return; }
+    if (!CurrentTreasure) { return; }
+
+    MyCharacter->DevelopmentMechanic(CurrentTreasure->TreasureRank);    
+
+    CurrentTreasure->Destroy();
+
+    ActivateSkill();
+}
