@@ -69,12 +69,12 @@ ATreasure* UTreasureSearchingSkill_comp::FindRandomTreasure()
 
     int32 RandomIndex = FMath::RandRange(0, FoundActors.Num() - 1);
     CurrentTreasure = Cast<ATreasure>(FoundActors[RandomIndex]);
-
+    return CurrentTreasure;
     DrawDebugSphere(
         GetWorld(),             // World context
         CurrentTreasure->GetActorLocation()+FVector(0,0,300),
         33.0f,                 // Radius
-        48,                     // Segments (smoothness)
+        12,                     // Segments (smoothness)
         FColor::Yellow,            // Color
         true,                  // Persistent (true = stays forever)
         5555.0f,                   // LifeTime in seconds
