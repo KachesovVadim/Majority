@@ -2,6 +2,7 @@
 
 #pragma once
 #include "CoreMinimal.h"
+#include "Engine/DataTable.h"
 #include "DataTypes.generated.h"
 
 class MAJORITY_API DataTypes
@@ -45,4 +46,26 @@ struct FTreasureRankLimits
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Config", meta = (ClampMin = "0"))
     int32 MaxCount = 10;
+};
+
+
+USTRUCT(BlueprintType)
+struct FItem_st : public FTableRowBase
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    FName Name;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    FText Visual_name;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    UTexture2D* Icon;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    float Price;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    ETreasureRank Rank;
 };
