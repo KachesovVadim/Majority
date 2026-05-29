@@ -61,7 +61,7 @@ struct FItem_st : public FTableRowBase
     FText Visual_name;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    UTexture2D* Icon;
+    TSoftObjectPtr<UTexture2D> Icon;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     float Price;
