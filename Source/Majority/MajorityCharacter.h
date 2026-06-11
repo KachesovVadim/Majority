@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
+#include "ParentCharacter.h"
 #include "InputActionValue.h"
 
 #include "DataTypes.h"
@@ -13,7 +13,7 @@
 
 
 UCLASS(config=Game)
-class AMajorityCharacter : public ACharacter
+class AMajorityCharacter : public AParentCharacter
 {
 	GENERATED_BODY()
 
