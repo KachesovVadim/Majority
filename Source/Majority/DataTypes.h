@@ -27,7 +27,8 @@ UENUM(BlueprintType)
 enum class EPlayerStatus : uint8
 {
     Idle            UMETA(DisplayName = "Character do nothing"),
-    TreasureHunting UMETA(DisplayName = "Character is looking for a treasure")
+    TreasureHunting UMETA(DisplayName = "Character is looking for a treasure"),
+    Fighting        UMETA(DisplayName = "Character is fighting")
 };
 
 

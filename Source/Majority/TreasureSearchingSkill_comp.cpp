@@ -47,12 +47,18 @@ void UTreasureSearchingSkill_comp::ActivateSkill()
     {
         MyCharacter->MetalDetectorActor->SetTargetTreasure(CurrentTreasure);
         MyCharacter->MetalDetectorActor->StartSearching();
+        MyCharacter->MetalDetectorActor->SetActorHiddenInGame(false);
     }
 }
 
 void UTreasureSearchingSkill_comp::DeactivateSkill()
 {
 	MyCharacter->CurrentPlayerStatus = EPlayerStatus::Idle;
+    if (MyCharacter->MetalDetectorActor)
+    {
+        MyCharacter->MetalDetectorActor->StopSearching();
+        MyCharacter->MetalDetectorActor->SetActorHiddenInGame(true);
+	}
 }
 
 ATreasure* UTreasureSearchingSkill_comp::FindRandomTreasure()

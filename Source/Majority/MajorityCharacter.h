@@ -7,7 +7,6 @@
 #include "InputActionValue.h"
 
 #include "DataTypes.h"
-#include "TreasureSearchingSkill_comp.h"
 
 #include "MajorityCharacter.generated.h"
 
@@ -69,7 +68,10 @@ public:
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
-	UTreasureSearchingSkill_comp* TreasureSearchingSkill_component;
+	class UTreasureSearchingSkill_comp* TreasureSearchingSkill_component;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	class UFightingSkill_component* FightingSkill_component;
 
 	// What chraracter is doing right now
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

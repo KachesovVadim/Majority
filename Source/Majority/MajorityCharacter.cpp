@@ -10,6 +10,9 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 
+#include "TreasureSearchingSkill_comp.h"
+#include "FightingSkill_component.h"
+
 // Attachment transform rule
 //#include "GameFramework/Actor.h"   // For FAttachmentTransformRules
 #include "MetalDetector.h" 
@@ -54,6 +57,7 @@ AMajorityCharacter::AMajorityCharacter()
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 
 	TreasureSearchingSkill_component = CreateDefaultSubobject<UTreasureSearchingSkill_comp>(TEXT("Treasure searching component"));
+	FightingSkill_component = CreateDefaultSubobject<UFightingSkill_component>(TEXT("Component, related to everything about fighting"));
 }
 
 void AMajorityCharacter::BeginPlay()

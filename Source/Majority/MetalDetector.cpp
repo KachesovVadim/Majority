@@ -29,6 +29,8 @@ AMetalDetector::AMetalDetector()
 	HintLight->SetupAttachment(SceneRoot);
 	HintLight->SetVisibility(false);
 
+    SetActorHiddenInGame(true);
+
 }
 
 // Called when the game starts or when spawned
