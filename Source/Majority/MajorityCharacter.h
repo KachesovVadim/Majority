@@ -10,8 +10,7 @@
 
 #include "MajorityCharacter.generated.h"
 
-
-UCLASS(config=Game)
+UCLASS(config = Game)
 class AMajorityCharacter : public AParentCharacter
 {
 	GENERATED_BODY()
@@ -23,7 +22,7 @@ class AMajorityCharacter : public AParentCharacter
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FollowCamera;
-	
+
 	/** MappingContext */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputMappingContext* DefaultMappingContext;
@@ -42,7 +41,10 @@ class AMajorityCharacter : public AParentCharacter
 
 public:
 	AMajorityCharacter();
-	
+
+	// --- ПЕРЕОПРЕДЕЛЕНИЕ УРОНА ---
+	// Здесь мы будем перехватывать урон, чтобы проверить блок и уворот
+	virtual void ApplyDamage(float DamageAmount, EDamageSource DamageSource, AActor* DamageCauser) override;
 
 protected:
 
@@ -51,15 +53,15 @@ protected:
 
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
-			
+
 
 protected:
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	
+
 	// To add mapping context
 	virtual void BeginPlay();
-	
+
 
 public:
 	/** Returns CameraBoom subobject **/
@@ -90,4 +92,3 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void DevelopmentMechanic(ETreasureRank TreasureRank);
 };
-

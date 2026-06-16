@@ -31,6 +31,15 @@ enum class EPlayerStatus : uint8
     Fighting        UMETA(DisplayName = "Character is fighting")
 };
 
+// --- НОВЫЙ ENUM ДЛЯ ИСТОЧНИКА УРОНА ---
+UENUM(BlueprintType)
+enum class EDamageSource : uint8
+{
+    Enemy    UMETA(DisplayName = "Enemy"),
+    Trap     UMETA(DisplayName = "Trap"),
+    Player   UMETA(DisplayName = "Player")
+};
+
 
 // ---------------------------------- STRUCTURES ----------------------------------
 // Конфиг лимитов для каждого качества сокровища

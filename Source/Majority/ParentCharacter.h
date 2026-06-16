@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "DataTypes.h" // Для использования EDamageSource
 #include "ParentCharacter.generated.h"
 
 UCLASS()
@@ -19,11 +20,29 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+	// --- ЗДОРОВЬЕ ---
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+	float MaxHealth = 100.0f;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Stats")
+	float CurrentHealth;
+
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	// --- БАЗОВАЯ ЛОГИКА УРОНА ---
+	// Виртуальная функция, чтобы наследники могли переопределить логику получения урона
+	UFUNCTION(BlueprintCallable, Category = "Combat")
+	virtual void ApplyDamage(float DamageAmount, EDamageSource DamageSource, AActor* DamageCauser);
+
+	UFUNCTION(BlueprintCallable, Category = "Combat")
+	float GetCurrentHealth() const { return CurrentHealth; }
+
+protected:
+	// Базовая функция смерти
+	virtual void Die();
 };
