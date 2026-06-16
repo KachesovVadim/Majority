@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "DataTypes.h"
+#include "Sound/SoundCue.h"
 #include "TreasureSearchingSkill_comp.generated.h"
 
 
@@ -23,6 +24,16 @@ protected:
 
 	UPROPERTY(VisibleAnywhere)
 	class AMajorityCharacter* MyCharacter;
+
+	// --- ЗВУКОВЫЕ ЭФФЕКТЫ (Настраиваются в Blueprint) ---
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Audio|Treasure")
+	USoundCue* SoundCuePoor;   // Для Common
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Audio|Treasure")
+	USoundCue* SoundCueGood;   // Для Uncommon, Rare, Epic
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Audio|Treasure")
+	USoundCue* SoundCueGreat;  // Для Legendary
 
 public:	
 	// Called every frame

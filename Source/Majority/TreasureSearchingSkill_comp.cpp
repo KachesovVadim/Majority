@@ -105,12 +105,48 @@ bool UTreasureSearchingSkill_comp::IsPlayerStayingNearTreasure()
 
 void UTreasureSearchingSkill_comp::DigTreasure()
 {
-    if (!IsPlayerStayingNearTreasure()) { return; }
-    if (!CurrentTreasure) { return; }
+	if (!IsPlayerStayingNearTreasure()) { return; }
+	if (!CurrentTreasure) { return; }
 
-    MyCharacter->DevelopmentMechanic(CurrentTreasure->TreasureRank);    
+	// 1. ÎÏÐÅÄÅËßÅÌ, ÊÀÊÎÉ ÇÂÓÊ ÂÎÑÏÐÎÈÇÂÅÑÒÈ
+	USoundCue* SoundToPlay = nullptr;
 
-    CurrentTreasure->Destroy();
+	switch (CurrentTreasure->TreasureRank)
+	{
+	case ETreasureRank::Common:
+		SoundToPlay = SoundCuePoor;
+		break;
 
-    ActivateSkill();
+	case ETreasureRank::Uncommon:
+	case ETreasureRank::Rare:
+	case ETreasureRank::Epic:
+		SoundToPlay = SoundCueGood;
+		break;
+
+	case ETreasureRank::Legendary:
+		SoundToPlay = SoundCueGreat;
+		break;
+
+	default:
+		SoundToPlay = SoundCuePoor; // Fallback íà âñÿêèé ñëó÷àé
+		break;
+	}
+
+	// 2. ÂÎÑÏÐÎÈÇÂÎÄÈÌ ÇÂÓÊ Â ÒÎ×ÊÅ, ÃÄÅ ÍÀÕÎÄÈÒÑß ÑÎÊÐÎÂÈÙÅ
+	if (SoundToPlay)
+	{
+		// PlaySoundAtLocation âîñïðîèçâîäèò çâóê â óêàçàííîé òî÷êå ìèðà
+		UGameplayStatics::PlaySoundAtLocation(
+			this,
+			SoundToPlay,
+			CurrentTreasure->GetActorLocation()
+		);
+	}
+
+	// 3. ÒÂÎß ÑÓÙÅÑÒÂÓÞÙÀß ËÎÃÈÊÀ
+	MyCharacter->DevelopmentMechanic(CurrentTreasure->TreasureRank);
+
+	CurrentTreasure->Destroy();
+
+	ActivateSkill();
 }
