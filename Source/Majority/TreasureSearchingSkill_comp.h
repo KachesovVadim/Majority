@@ -25,6 +25,9 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	class AMajorityCharacter* MyCharacter;
 
+	// Delay after you digged the treasure before starting searching the new one
+	FTimerHandle DelayBetweenTreasures;
+
 	// --- ЗВУКОВЫЕ ЭФФЕКТЫ (Настраиваются в Blueprint) ---
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Audio|Treasure")
 	USoundCue* SoundCuePoor;   // Для Common

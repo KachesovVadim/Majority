@@ -148,5 +148,13 @@ void UTreasureSearchingSkill_comp::DigTreasure()
 
 	CurrentTreasure->Destroy();
 
-	ActivateSkill();
+	MyCharacter->GetWorldTimerManager().SetTimer(
+		DelayBetweenTreasures,
+		this,
+		&UTreasureSearchingSkill_comp::ActivateSkill,
+		2.0f,
+		false
+	);
+
+	//ActivateSkill();
 }
