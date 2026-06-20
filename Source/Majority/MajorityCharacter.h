@@ -75,6 +75,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 	class UFightingSkill_component* FightingSkill_component;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	class UInventoryComponent* Inventory_component;
+
 	// What chraracter is doing right now
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EPlayerStatus CurrentPlayerStatus = EPlayerStatus::Idle;

@@ -12,6 +12,7 @@
 
 #include "TreasureSearchingSkill_comp.h"
 #include "FightingSkill_component.h"
+#include "InventoryComponent.h"
 #include "MetalDetector.h" 
 
 //////////////////////////////////////////////////////////////////////////
@@ -46,6 +47,7 @@ AMajorityCharacter::AMajorityCharacter()
 
 	TreasureSearchingSkill_component = CreateDefaultSubobject<UTreasureSearchingSkill_comp>(TEXT("Treasure searching component"));
 	FightingSkill_component = CreateDefaultSubobject<UFightingSkill_component>(TEXT("Component, related to everything about fighting"));
+	Inventory_component = CreateDefaultSubobject<UInventoryComponent>(TEXT("Character inventory"));
 }
 
 void AMajorityCharacter::BeginPlay()

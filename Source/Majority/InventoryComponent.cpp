@@ -36,7 +36,6 @@ int32 UInventoryComponent::AddItem(FName Name, int32 Amount)
         return 0;
     }
 
-    // Check unique slot limit
     if (MaxUniqueItems > 0 && !Inventory.Contains(Name) && Inventory.Num() >= MaxUniqueItems)
     {
         UE_LOG(LogTemp, Warning,
@@ -44,12 +43,12 @@ int32 UInventoryComponent::AddItem(FName Name, int32 Amount)
         return 0;
     }
 
-    // Check MaxStack from DataTable (optional extension - not in current struct)
     int32 ActualAmount = Amount;
 
     int32& CurrentAmount = Inventory.FindOrAdd(Name, 0);
     CurrentAmount += ActualAmount;
 
+    SortInventory();
     BroadcastChange();
 
     UE_LOG(LogTemp, Verbose,
@@ -80,6 +79,7 @@ int32 UInventoryComponent::RemoveItem(FName Name, int32 Amount)
         Inventory.Remove(Name);
     }
 
+    SortInventory();
     BroadcastChange();
 
     UE_LOG(LogTemp, Verbose,
@@ -135,6 +135,7 @@ void UInventoryComponent::AddItemsByNames(const TArray<FName>& Names)
 
     if (bChanged)
     {
+        SortInventory();
         BroadcastChange();
     }
 }
@@ -215,6 +216,35 @@ TMap<FName, int32> UInventoryComponent::GetRawInventory() const
     return Inventory;
 }
 
+void UInventoryComponent::GetItemByIndex(int32 Index, FName& OutName, bool& bIsValid, int32& OutAmount) const
+{
+    // —брасываем значени€ по умолчанию
+    OutName = NAME_None;
+    OutAmount = 0;
+    bIsValid = false;
+
+    // ѕровер€ем, выходит ли индекс за пределы допустимого диапазона
+    if (Index < 0 || Index >= Inventory.Num())
+    {
+        return;
+    }
+
+    // “ак как TMap не имеет пр€мого доступа по индексу, мы итерируемс€ по нему.
+    // Ѕлагодар€ вызову SortInventory(), итераци€ идет в отсортированном пор€дке.
+    int32 CurrentIndex = 0;
+    for (const TPair<FName, int32>& Pair : Inventory)
+    {
+        if (CurrentIndex == Index)
+        {
+            OutName = Pair.Key;
+            OutAmount = Pair.Value;
+            bIsValid = true;
+            return;
+        }
+        CurrentIndex++;
+    }
+}
+
 // ------------------------------------------------
 //  TRANSFER
 // ------------------------------------------------
@@ -281,4 +311,34 @@ FItem_st* UInventoryComponent::GetItemRow(FName Name) const
 void UInventoryComponent::BroadcastChange()
 {
     OnInventoryChanged.Broadcast();
+}
+
+void UInventoryComponent::SortInventory()
+{
+    if (Inventory.Num() <= 1)
+    {
+        return;
+    }
+
+    Inventory.KeySort([this](const FName& A, const FName& B)
+        {
+            FItem_st* RowA = GetItemRow(A);
+            FItem_st* RowB = GetItemRow(B);
+
+            auto GetRarity = [](FItem_st* Row) -> int32
+                {
+                    if (!Row) return 0;
+                    return static_cast<int32>(Row->Rank);
+                };
+
+            int32 RarityA = GetRarity(RowA);
+            int32 RarityB = GetRarity(RowB);
+
+            if (RarityA != RarityB)
+            {
+                return RarityA > RarityB;
+            }
+
+            return A.ToString() < B.ToString();
+        });
 }

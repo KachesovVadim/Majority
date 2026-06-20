@@ -144,7 +144,7 @@ void UTreasureSearchingSkill_comp::DigTreasure()
 	}
 
 	// 3. ÒÂÎß ÑÓÙÅÑÒÂÓÞÙÀß ËÎÃÈÊÀ
-	MyCharacter->DevelopmentMechanic(CurrentTreasure->TreasureRank);
+	//MyCharacter->DevelopmentMechanic(CurrentTreasure->TreasureRank);
 
 	CurrentTreasure->Destroy();
 
