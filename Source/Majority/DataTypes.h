@@ -89,8 +89,5 @@ struct FItemsOnLevel_st : public FTableRowBase
     int32 Zone;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    FString LVL_Name;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TArray<FName> Items;
 };
