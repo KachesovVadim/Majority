@@ -79,3 +79,18 @@ struct FItem_st : public FTableRowBase
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     ETreasureRank Rank;
 };
+
+USTRUCT(BlueprintType)
+struct FItemsOnLevel_st : public FTableRowBase
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    int32 Zone;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    FString LVL_Name;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    TArray<FName> Items;
+};
