@@ -59,5 +59,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void DigTreasure();
 
-	
+private:
+	// —сылки на наши таблицы данных
+	UDataTable* ItemsOnLevels_dt;
+	UDataTable* All_items_dt;
 };
