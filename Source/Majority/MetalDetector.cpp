@@ -163,12 +163,20 @@ void AMetalDetector::SetTargetTreasure(ATreasure* NewTreasure)
 
     if (HintWidgetInstance)
     {
+        HintWidgetInstance->SetActorHiddenInGame(true);
+    }
+    
+    if (TargetTreasure)
+    {
         FVector NewLocation = TargetTreasure->GetActorLocation() + FVector(0, 0, WidgetHeightOffset);
         HintWidgetInstance->SetActorLocation(NewLocation);
-        HintWidgetInstance->SetActorHiddenInGame(true);
-    }    
+    }
+    else
+    {
+        return;
+    }
 
-    else if (TargetTreasure && HintWidgetClass)
+    if (!HintWidgetInstance && TargetTreasure && HintWidgetClass)
     {
         // Создаём виджет в мире
         HintWidgetInstance = GetWorld()->SpawnActor<AActor>(

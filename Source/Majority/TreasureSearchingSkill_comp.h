@@ -61,6 +61,8 @@ public:
 
 private:
 	// —сылки на наши таблицы данных
+	UPROPERTY()
 	UDataTable* ItemsOnLevels_dt;
+	UPROPERTY()
 	UDataTable* All_items_dt;
 };

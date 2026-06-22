@@ -8,6 +8,7 @@
 #include "Treasure.h"
 
 #include "DrawDebugHelpers.h"
+#include "InventoryComponent.h"
 
 // Sets default values for this component's properties
 UTreasureSearchingSkill_comp::UTreasureSearchingSkill_comp()
@@ -163,8 +164,9 @@ void UTreasureSearchingSkill_comp::DigTreasure()
     // 1. Получаем название текущего уровня и ищем строку в таблице ItemsOnLevels_dt
     // Так как RowName - это название карты, мы просто приводим FString к FName
     FString CurrentLevelName = UGameplayStatics::GetCurrentLevelName(GetWorld(), false);
+    CurrentLevelName.RemoveFromStart(GetWorld()->StreamingLevelsPrefix);
     FItemsOnLevel_st* LevelData = ItemsOnLevels_dt->FindRow<FItemsOnLevel_st>(*CurrentLevelName, TEXT("DigTreasure_FindLevel"));
-
+    
     if (!LevelData || LevelData->Items.Num() == 0)
     {
         UE_LOG(LogTemp, Warning, TEXT("DigTreasure: No items configured for level '%s'"), *CurrentLevelName);
@@ -214,10 +216,15 @@ void UTreasureSearchingSkill_comp::DigTreasure()
         }
     }
 
-    // 6. Вызываем DevelopmentMechanic
-    MyCharacter->DevelopmentMechanic(CurrentTreasure->TreasureRank);
+    // 6. Выводим сообщение об успешной находке
+    MyCharacter->DisplayTreasure(RandomItemName);
 
 	CurrentTreasure->Destroy();
+
+    if (MyCharacter->MetalDetectorActor)
+    {
+        MyCharacter->MetalDetectorActor->SetTargetTreasure(nullptr);
+    }
 
 	MyCharacter->GetWorldTimerManager().SetTimer(
 		DelayBetweenTreasures,

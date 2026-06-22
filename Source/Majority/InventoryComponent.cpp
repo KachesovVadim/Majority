@@ -11,6 +11,8 @@ void UInventoryComponent::BeginPlay()
 {
     Super::BeginPlay();
 
+    ItemsDataTable = LoadObject<UDataTable>(nullptr, TEXT("/Game/Blueprints/Data/All_items_dt.All_items_dt"));
+
     if (!ItemsDataTable)
     {
         UE_LOG(LogTemp, Warning,

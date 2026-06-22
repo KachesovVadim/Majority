@@ -93,5 +93,5 @@ public:
 	class AMetalDetector* MetalDetectorActor;
 
 	UFUNCTION(BlueprintImplementableEvent)
-	void DevelopmentMechanic(ETreasureRank TreasureRank);
+	void DisplayTreasure(FName TreasureName);
 };
