@@ -165,31 +165,28 @@ void AMetalDetector::SetTargetTreasure(ATreasure* NewTreasure)
     {
         HintWidgetInstance->SetActorHiddenInGame(true);
     }
+    else
+    {
+        if (IsValid(HintWidgetClass)) {
+            // —оздаЄм виджет в мире
+            HintWidgetInstance = GetWorld()->SpawnActor<AActor>(
+                HintWidgetClass,
+                TargetTreasure->GetActorLocation() + FVector(0, 0, WidgetHeightOffset),
+                FRotator::ZeroRotator
+            );
+
+            if (HintWidgetInstance)
+            {
+                // »значально скрываем Ч покажем только в EnterFoundState
+                HintWidgetInstance->SetActorHiddenInGame(true);
+            }
+        }
+    }
     
-    if (TargetTreasure)
+    if (TargetTreasure && HintWidgetInstance)
     {
         FVector NewLocation = TargetTreasure->GetActorLocation() + FVector(0, 0, WidgetHeightOffset);
         HintWidgetInstance->SetActorLocation(NewLocation);
-    }
-    else
-    {
-        return;
-    }
-
-    if (!HintWidgetInstance && TargetTreasure && HintWidgetClass)
-    {
-        // —оздаЄм виджет в мире
-        HintWidgetInstance = GetWorld()->SpawnActor<AActor>(
-            HintWidgetClass,
-            TargetTreasure->GetActorLocation() + FVector(0, 0, WidgetHeightOffset),
-            FRotator::ZeroRotator
-        );
-
-        if (HintWidgetInstance)
-        {
-            // »значально скрываем Ч покажем только в EnterFoundState
-            HintWidgetInstance->SetActorHiddenInGame(true);
-        }
     }
 }
 
