@@ -71,6 +71,9 @@ struct FItem_st : public FTableRowBase
     FText Visual_name;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    FText Description;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TSoftObjectPtr<UTexture2D> Icon;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
