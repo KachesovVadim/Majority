@@ -7,7 +7,8 @@
 <img width="480" height="270" alt="search" src="https://github.com/user-attachments/assets/571776ff-a4d4-46e1-9a99-c3b96adfcdd3" />
 <img width="1919" height="1079" alt="dig" src="https://github.com/user-attachments/assets/d4cf0493-855f-43d2-a59c-f790e05ad111" />
 <img width="1919" height="1079" alt="treasure" src="https://github.com/user-attachments/assets/87894344-a1a3-4875-bf28-0b1c3161a727" />
-<img width="1919" height="1079" alt="inventory" src="https://github.com/user-attachments/assets/d5fe019d-7900-4025-89e5-cd0d98653638" />
+<img width="1919" height="1079" alt="Screenshot_2" src="https://github.com/user-attachments/assets/76444c6d-ea44-4934-9ee8-319fd3d74389" />
+
 
 
 Есть 5 видов редкости 
